@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -57,9 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
             PrefsHelper.with().putInt("add", 0);
         }
-        CookieSyncManager cookieSyncMngr = CookieSyncManager.createInstance(this);
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeAllCookie();
+//        CookieSyncManager cookieSyncMngr = CookieSyncManager.createInstance(this);
+//        CookieManager cookieManager = CookieManager.getInstance();
+//        cookieManager.removeAllCookie();
         initView();
 //        new Thread(() -> PoJieUtil.checkShoujileyuan(getApplicationContext())).start();
 
@@ -99,12 +100,19 @@ public class LoginActivity extends AppCompatActivity {
                 .useDefaultIndicator()
                 .setAgentWebWebSettings(new CustomSettings())
                 .setWebViewClient(new WebViewClient() {
+//                    @Override
+//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                        if (!isLoad) {
+//                            view.loadUrl(url);
+//                        }
+//                        return true;
+//                    }
+
+
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        if (!isLoad) {
-                            view.loadUrl(url);
-                        }
-                        return true;
+                        Log.d("LoginActivity", "shouldOverrideUrlLoading url=" + url);
+                        return super.shouldOverrideUrlLoading(view, url);
                     }
 
                     @Override
@@ -123,24 +131,30 @@ public class LoginActivity extends AppCompatActivity {
                         super.onPageStarted(view, url, favicon);
                     }
 
+                    private boolean hasChecked = true;
+
                     @Override
                     public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
                         String cookie = AgentWebConfig.getCookiesByUrl(url);
+                        Log.d("LoginActivity", "hasChecked=" + hasChecked);
                         Log.d("LoginActivity", "url=" + url + " cookie=" + cookie);
                         if (url.startsWith("https://i.mi.com/#/")) {
+                            hasChecked = false;
                             view.loadUrl("https://i.mi.com/note/h5");
-                        } else if (url.startsWith("https://i.mi.com/note/h5") && cookie.contains("com_istrudev=true")) {
+                        } else if (url.startsWith("https://account.xiaomi.com")) {
+                            hasChecked = true;
+                        } else if (url.startsWith("https://i.mi.com/note/h5") && hasChecked) {
                             isLoad = false;
                             PrefsHelper.with().putString("cookie", cookie);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         }
-                        super.onPageFinished(view, url);
                     }
                 })
                 .createAgentWeb()
                 .ready()
-                .go("https://i.mi.com/");
+                .go(TextUtils.isEmpty(AgentWebConfig.getCookiesByUrl("https://i.mi.com")) ? "https://i.mi.com/" : "https://i.mi.com/note/h5#/");
     }
 
     private class CustomSettings extends AbsAgentWebSettings {
