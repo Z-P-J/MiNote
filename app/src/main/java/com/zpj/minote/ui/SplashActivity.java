@@ -1,4 +1,4 @@
-package com.zpj.minote;
+package com.zpj.minote.ui;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
+import com.zpj.minote.R;
 import com.zpj.utils.PrefsHelper;
 import com.zpj.utils.StatusBarUtils;
 

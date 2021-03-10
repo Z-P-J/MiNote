@@ -1,4 +1,4 @@
-package com.zpj.minote;
+package com.zpj.minote.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -13,8 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,6 +22,7 @@ import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
 import com.just.agentweb.IAgentWebSettings;
+import com.zpj.minote.R;
 import com.zpj.utils.PrefsHelper;
 import com.zpj.utils.StatusBarUtils;
 
