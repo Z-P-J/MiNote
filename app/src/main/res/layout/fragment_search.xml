@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f6fa">
+
+    <com.zpj.widget.toolbar.ZSearchBar
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_hint_text="请输入关键词"
+        app:z_toolbar_titleBarColor="#f5f6fa"
+        app:z_toolbar_leftImageResource="@drawable/ic_search_black_24dp"
+        app:z_toolbar_showRightImageButton="false"
+        app:z_toolbar_background="@drawable/search_input_bg"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</LinearLayout>

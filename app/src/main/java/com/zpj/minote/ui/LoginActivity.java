@@ -116,17 +116,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//                        if (url.startsWith("https://pan.baidu.com/wap/home")) {
-//                            view.getSettings().setUserAgentString(UAHelper.getSystemUA());
-//                            showLoading("加载中，请稍后...");
-//                            isLoad = true;
-//                        } else if (url.startsWith("https://wappass.baidu.com/passport?login")
-//                                || url.startsWith("https://passport.baidu.com/v2/?login")) {
-//                            showLoading("加载中，请稍后...");
-//                        } else if (url.startsWith("https://pan.baidu.com/")) {
-//                            view.getSettings().setUserAgentString(UAHelper.getPCBaiduNetdiskUA());
-//                            showLoading("加载中，请稍后...");
-//                        }
                         super.onPageStarted(view, url, favicon);
                     }
 
