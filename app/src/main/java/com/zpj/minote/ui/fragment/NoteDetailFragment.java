@@ -2,6 +2,7 @@ package com.zpj.minote.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -53,10 +54,17 @@ public class NoteDetailFragment extends BaseSwipeBackFragment {
         getNoteDetail(id);
     }
 
+    @Override
+    public void onDestroyView() {
+        hideSoftInput();
+        super.onDestroyView();
+    }
+
     private void getNoteDetail(String id) {
         HttpApi.getNoteDetail(id)
                 .onSuccess(data -> {
                     Log.d("NoteDetailFragment", "getNoteDetail data=" + data);
+
                     mTvContent.setText(data.getJSONObject("data").getJSONObject("entry").getString("content"));
                     mStateManager.showContent();
                 })

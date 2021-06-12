@@ -6,11 +6,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.zpj.fragmentation.BaseSwipeBackFragment;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
+import com.zpj.fragmentation.dialog.animator.EmptyAnimator;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.minote.R;
 import com.zpj.minote.api.HttpApi;
 import com.zpj.minote.model.NoteItem;
+import com.zpj.minote.ui.widget.SearchBar;
 import com.zpj.minote.utils.KeywordUtil;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.utils.PrefsHelper;
@@ -24,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class SearchFragment extends BaseSwipeBackFragment {
+public class SearchFragment extends FullScreenDialogFragment {
 
     private final List<NoteItem> list = new ArrayList<>();
 
@@ -32,16 +39,32 @@ public class SearchFragment extends BaseSwipeBackFragment {
     private String mKeyword;
 
     @Override
-    protected int getLayoutId() {
+    protected int getImplLayoutId() {
         return R.layout.fragment_search;
     }
 
     @Override
+    protected PopupAnimator getDialogAnimator(ViewGroup contentView) {
+        return null;
+    }
+
+    @Override
+    public long getShowAnimDuration() {
+        return 0;
+    }
+
+    @Override
+    public long getDismissAnimDuration() {
+        return 0;
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
         String cookie = PrefsHelper.with().getString("cookie");
         Log.d("MainActivity", "cookie=" + cookie);
 
-        ZSearchBar searchBar = findViewById(R.id.search_bar);
+        SearchBar searchBar = findViewById(R.id.search_bar);
         searchBar.setOnSearchListener(new ZSearchBar.OnSearchListener() {
             @Override
             public void onSearch(String keyword) {
@@ -49,7 +72,10 @@ public class SearchFragment extends BaseSwipeBackFragment {
             }
         });
 
+        findViewById(R.id.btn_back).setOnClickListener(v -> dismiss());
+
         mRecyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
+        mRecyclerView.getRecyclerView().setAlpha(0f);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         mRecyclerView.setData(list)
                 .setItemRes(R.layout.item_note)
@@ -70,6 +96,12 @@ public class SearchFragment extends BaseSwipeBackFragment {
                 showSoftInput(searchBar.getEditor());
             }
         });
+
+        mRecyclerView.getRecyclerView()
+                .animate()
+                .alpha(1f)
+                .setDuration(360)
+                .start();
     }
 
     @Override

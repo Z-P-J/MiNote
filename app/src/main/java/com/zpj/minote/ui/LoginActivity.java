@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtils.transparentStatusBar(this);
         setContentView(R.layout.activity_login);
         if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -64,32 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 //        new Thread(() -> PoJieUtil.checkShoujileyuan(getApplicationContext())).start();
 
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = new MenuInflater(LoginActivity.this);
-//        //MenuInflater inflater = getMenuInflater();//另一种方法
-//        inflater.inflate(R.menu.login_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == R.id.change_web) {
-//            if (item.getTitle().equals("切换电脑版网页")) {
-//                item.setTitle("切换手机版网页");
-////                webView.getSettings().setUserAgentString(UAHelper.getRandomPCUA());
-////                webView.loadUrl("https://passport.baidu.com/v2/?login&u=https%3A%2F%2Fpan.baidu.com%2F");
-//                mAgentWeb.getAgentWebSettings().getWebSettings().setUserAgentString(UAHelper.getRandomPCUA());
-//                mAgentWeb.getWebCreator().getWebView().loadUrl("https://passport.baidu.com/v2/?login&u=https%3A%2F%2Fpan.baidu.com%2F");
-//            } else if (item.getTitle().equals("切换手机版网页")) {
-//                item.setTitle("切换电脑版网页");
-//                mAgentWeb.getAgentWebSettings().getWebSettings().setUserAgentString(UAHelper.getRandomMobileUA());
-//                mAgentWeb.getWebCreator().getWebView().loadUrl("https://wappass.baidu.com/passport?login&authsite=1&tpl=netdisk&display=mobile&u=https://pan.baidu.com/");
-//            }
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initView() {

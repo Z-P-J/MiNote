@@ -18,6 +18,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.utils.PrefsHelper;
+import com.zpj.utils.StatusBarUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +35,7 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtils.transparentStatusBar(this);
         setContentView(R.layout.activity_main);
         MainFragment mainFragment = findFragment(MainFragment.class);
         if (mainFragment == null) {
