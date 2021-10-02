@@ -2,20 +2,17 @@ package com.zpj.minote.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.BaseSwipeBackFragment;
+import com.zpj.fragmentation.SimpleFragment;
 import com.zpj.minote.R;
 import com.zpj.minote.api.HttpApi;
 import com.zpj.statemanager.StateManager;
 
-public class NoteDetailFragment extends BaseSwipeBackFragment {
+public class NoteDetailFragment extends SimpleFragment {
 
     private static final String KEY_ID = "key_id";
 
@@ -32,6 +29,10 @@ public class NoteDetailFragment extends BaseSwipeBackFragment {
         return fragment;
     }
 
+    @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
 
     @Override
     protected int getLayoutId() {

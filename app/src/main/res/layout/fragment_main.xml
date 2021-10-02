@@ -1,39 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f6fa">
+    android:background="#f7f7f7"
+    android:fitsSystemWindows="true"
+    >
 
-    <com.zpj.widget.toolbar.ZToolBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:z_toolbar_centerText="@string/app_name"
-        app:z_toolbar_centerTextSize="24sp"
-        app:z_toolbar_background="#f5f6fa"
-        app:z_toolbar_rightType="imageButton"
-        app:z_toolbar_rightImageResource="@drawable/ic_search_black_24dp"
-        />
 
-    <TextView
-        android:id="@+id/tv_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="搜索便签"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="24dp"
-        android:drawableStart="@drawable/ic_search_black_24dp"
-        android:drawablePadding="12dp"
-        android:background="@drawable/search_input_bg"
-        android:layout_margin="24dp"
-        />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:fitsSystemWindows="true">
 
-</LinearLayout>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="@color/transparent"
+            android:fitsSystemWindows="true"
+            app:elevation="0dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/transparent"
+                app:expandedTitleGravity="center_vertical"
+                app:expandedTitleMarginStart="0dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="112dp"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="pin" />
+
+
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <FrameLayout
+                android:id="@+id/fl_searcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+
+        </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        >
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="184dp">
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/app_name"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <com.zpj.minote.ui.widget.SolidArrowView
+                    android:id="@+id/arrow_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="4dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_title"
+                android:layout_marginStart="16dp"
+                android:text="@string/app_name"
+                android:textSize="14sp"
+                />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            >
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:background="?attr/actionBarItemBackground"
+                android:visibility="gone"
+                />
+
+            <com.zpj.minote.ui.widget.SearchBar
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:z_toolbar_centerSearchEditable="false"
+                app:z_toolbar_background="@drawable/bg_search"
+                app:z_toolbar_titleBarColor="#f7f7f7"
+                app:z_toolbar_leftImageResource="@drawable/ic_search_black_24dp"
+                app:z_toolbar_showRightImageButton="false"
+                app:z_toolbar_hint_text="搜索便签"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

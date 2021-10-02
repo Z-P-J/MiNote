@@ -1,38 +1,34 @@
 package com.zpj.minote.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.SimpleFragment;
 import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.enums.PopupPosition;
+import com.zpj.fragmentation.dialog.enums.DialogPosition;
 import com.zpj.minote.R;
 import com.zpj.minote.api.HttpApi;
 import com.zpj.minote.model.NoteItem;
 import com.zpj.minote.ui.LoginActivity;
+import com.zpj.minote.ui.widget.HighlightTextView;
 import com.zpj.minote.ui.widget.SearchBar;
 import com.zpj.minote.ui.widget.SolidArrowView;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.utils.ColorUtils;
 import com.zpj.utils.PrefsHelper;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.toolbar.ZSearchBar;
 
 import org.json.JSONArray;
 
@@ -42,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends SimpleFragment {
 
     private static final String TAG = "MainFragment";
 
@@ -57,7 +53,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_main_coor;
+        return R.layout.fragment_main;
     }
 
     @Override
@@ -85,7 +81,7 @@ public class MainFragment extends BaseFragment {
             public void onClick(View v) {
                 arrowView.switchState();
                 new CategoryFragment()
-                        .setPopupPosition(PopupPosition.Bottom)
+                        .setDialogPosition(DialogPosition.Bottom)
                         .setOnDismissListener(new IDialog.OnDismissListener() {
                             @Override
                             public void onDismiss() {
@@ -216,12 +212,15 @@ public class MainFragment extends BaseFragment {
 
         EasyRecyclerView<NoteItem> recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setData(list)
                 .setItemRes(R.layout.item_note)
-                .setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
+                .setLayoutManager(layoutManager)
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     NoteItem note = list.get(position);
-                    holder.setText(R.id.tv_content, note.getSnippet());
+                    HighlightTextView highlightTextView = holder.getView(R.id.tv_text);
+                    highlightTextView.setText(note.getSnippet());
+//                    holder.setText(R.id.tv_content, note.getSnippet());
                     holder.setText(R.id.tv_info, format.format(new Date(note.getModifyDate())));
                 })
                 .onItemClick((holder, view1, data) -> {

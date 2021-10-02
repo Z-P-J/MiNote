@@ -15,24 +15,29 @@
         android:padding="16dp"
         >
 
-        <TextView
-            android:id="@+id/tv_title"
+        <com.zpj.minote.ui.widget.HighlightTextView
+            android:id="@+id/tv_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            />
+            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Content"
-            android:maxLines="10"
-            android:ellipsize="end"
-            android:paddingVertical="8dp"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Title"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="18sp"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Content"-->
+<!--            android:maxLines="10"-->
+<!--            android:ellipsize="end"-->
+<!--            android:paddingVertical="8dp"-->
+<!--            />-->
 
         <TextView
             android:id="@+id/tv_info"

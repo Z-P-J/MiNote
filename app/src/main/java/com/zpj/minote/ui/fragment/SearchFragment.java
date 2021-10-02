@@ -8,11 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zpj.fragmentation.BaseSwipeBackFragment;
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
-import com.zpj.fragmentation.dialog.animator.EmptyAnimator;
-import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.DialogAnimator;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.minote.R;
 import com.zpj.minote.api.HttpApi;
@@ -44,7 +40,7 @@ public class SearchFragment extends FullScreenDialogFragment {
     }
 
     @Override
-    protected PopupAnimator getDialogAnimator(ViewGroup contentView) {
+    protected DialogAnimator onCreateDialogAnimator(ViewGroup contentView) {
         return null;
     }
 
